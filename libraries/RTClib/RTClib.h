@@ -1,3 +1,4 @@
+#if defined(__AVR__)  
 // Code by JeeLabs http://news.jeelabs.org/code/
 // Released to the public domain! Enjoy!
 
@@ -62,3 +63,5 @@ protected:
 };
 */
 #endif // _RTCLIB_H_
+
+#endif 

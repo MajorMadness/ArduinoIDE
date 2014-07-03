@@ -1,3 +1,4 @@
+#if defined(__AVR__)  
 // Code by JeeLabs http://news.jeelabs.org/code/
 // Released to the public domain! Enjoy!
 
@@ -17,11 +18,7 @@
 
 #define SECONDS_FROM_1970_TO_2000 946684800
 
-#if (ARDUINO >= 100)
  #include <Arduino.h> // capital A so it is error prone on case-sensitive filesystems
-#else
- #include <WProgram.h>
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // utility code, some of this could be exposed in the DateTime API if needed
@@ -287,3 +284,5 @@ DateTime RTC_Millis::now() {
 */
 
 ////////////////////////////////////////////////////////////////////////////////
+
+#endif

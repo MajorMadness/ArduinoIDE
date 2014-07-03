@@ -29,17 +29,17 @@ void PCA9685::init() {
 	writeRegister(PCA9685_MODE1, (byte)0xa1);	// set up for auto increment
 	writeRegister(PCA9685_MODE2, (byte)0x10);	// set to output
 }
-void PCA9685::init(boolean pwm) {
-	delay(1);
-	writeRegister(PCA9685_MODE1, (byte)0x01);	// reset the device
-	delay(1);
-	writeRegister(PCA9685_MODE1, (byte)0xa1);	// set up for auto increment
-	if(pwm==true)
-	writeRegister(PCA9685_MODE2, (byte)0b00000101);	// set to output
-	else 
-	writeRegister(PCA9685_MODE2, (byte)0x10);	// set to output
-}
 
+void PCA9685::setLEDDimmed(int ledNumber, word amount) {		// Amount from 0-100 (off-on)
+	if (amount==0)	{
+		setLEDOff(ledNumber);
+	} else if (amount>=100) {
+		setLEDOn(ledNumber);
+	} else {
+		int randNumber = (int)random(4096);	// Randomize the phaseshift to distribute load. Good idea? Hope so.
+		writeLED(ledNumber, randNumber, (word)(amount+randNumber) & 0xFFF);
+	}
+}
 
 void PCA9685::writeLED(int ledNumber, word LED_ON, word LED_OFF) {	// LED_ON and LED_OFF are 12bit values (0-4095); ledNumber is 0-15
 	if (ledNumber >=0 && ledNumber <= 15)	{
