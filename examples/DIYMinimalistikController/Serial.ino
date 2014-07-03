@@ -41,11 +41,18 @@ void serialHandler(String input){
     case 3:
       pin= input.substring(2,3).toInt();
       val= input.substring(4,7).toInt();
-      t.pulse(dosing[pin].pinAddr,val*1000 / dosing[pin].mlperminute *60, LOW);
+      calibrate=pin;
+      digitalWrite(dosing[calibrate].pinAddr,HIGH);
+      t.after(val*1000,stopCal);
+//      t.pulse(dosing[pin].pinAddr,val*1000 / dosing[pin].mlperminute *60, LOW);
       Serial.print(F("P "));
       Serial.print(pin);
       Serial.print(F(" kalibriert"));
       break;
   }
       
+}
+void stopCal(){
+  digitalWrite(dosing[calibrate].pinAddr,LOW);
+  calibrate=0;
 }
