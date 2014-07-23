@@ -29,9 +29,7 @@ void serialHandler(String input){
     case 2:
       pin= input.substring(2,3).toInt();
       val= input.substring(4,7).toInt();
-    word n_PWM;  
-    n_PWM = pgm_read_word(&pwmtable[val]);
-      setLED(pin,4095-int(n_PWM*40.95));
+      setLED(pin,4095-int(val*40.95));
       manualLight=true;
       Serial.print(pin);
       Serial.print(F(" -> "));
@@ -41,18 +39,18 @@ void serialHandler(String input){
     case 3:
       pin= input.substring(2,3).toInt();
       val= input.substring(4,7).toInt();
-      calibrate=pin;
-      digitalWrite(dosing[calibrate].pinAddr,HIGH);
-      t.after(val*1000,stopCal);
-//      t.pulse(dosing[pin].pinAddr,val*1000 / dosing[pin].mlperminute *60, LOW);
-      Serial.print(F("P "));
-      Serial.print(pin);
-      Serial.print(F(" kalibriert"));
+      if(pin<PUMPCOUNTS){
+        unsigned long time = long(val*1000L);
+        t.pulseImmediate(dosingPins[pin],time, HIGH);
+        Serial.print(F("P "));
+        Serial.print(pin);
+        Serial.print(F(" kalibriert"));
+      }else{
+        Serial.print(F("P "));
+        Serial.print(pin);
+        Serial.print(F(" nicht definiert"));
+      }
       break;
   }
       
-}
-void stopCal(){
-  digitalWrite(dosing[calibrate].pinAddr,LOW);
-  calibrate=0;
 }

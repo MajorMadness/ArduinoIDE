@@ -3,17 +3,22 @@
 
 #include <WString.h>
 
+
 typedef struct {
   uint32_t time;
   byte level;  
 }LIGHT;
 
 typedef struct {
+  byte level;  
+  boolean state;
+}LIGHT_STATE;
+
+typedef struct {
     uint32_t time;
     boolean active;
     char name[3];
-    int pinAddr;
-    byte mlperminute;
+    byte pinAddr;
     byte mldosing;
 }PUMP;
 

@@ -28,13 +28,34 @@ void loop()
     error = Wire.endTransmission();
 
     if (error == 0)
-    {
-      Serial.print("I2C device found at address 0x");
+    {	
+	  if(address==20){
+	    Serial.print("Keypad gefunden Adresse ");
+        Serial.print("0x");
+        Serial.println(address,HEX);
+	  }else if(address==27){
+	    Serial.print("LCD gefunden Adresse ");
+        Serial.print("0x");
+        Serial.println(address,HEX);
+	  }else if(address==40){
+	    Serial.print("PWM Treiber gefunden Adresse ");
+        Serial.print("0x");
+        Serial.println(address,HEX);
+	  }else if(address==68){
+	    Serial.print("RTC gefunden Adresse ");
+        Serial.print("0x");
+        Serial.println(address,HEX);
+	  }else if(address==70){
+	    Serial.print("PWM Treiber Broadcast gefunden Adresse ");
+        Serial.print("0x");
+        Serial.println(address,HEX);
+	  }else{
+        Serial.print("I2C device gefunden mit Adresse 0x");
       if (address<16) 
         Serial.print("0");
-      Serial.print(address,HEX);
-      Serial.println("  !");
 
+      Serial.println("  !");
+      }
       nDevices++;
     }
     else if (error==4) 

@@ -21,7 +21,6 @@ OneWire  ds(PIN_TEMP);
 LiquidCrystal_I2C lcd(LCD_ADR,2,1,0,4,5,6,7,3,POSITIVE);   // Set the LCD I2C address
 
 boolean pumpReset=false;
-byte calibrate=0;
 
 
 boolean manualLight=false;
@@ -83,16 +82,17 @@ void loop() {
 //    Serial.println(key);
 //  }
  
-    if (keypad.getState() == HOLD && key && (millis() - t_hold) > 500 ) {
-      Serial.println(key);
-      if(key=='A'||key=='B'||key=='C'||key=='D'||key=='#'||key=='*'){
+/*
+      if (keypad.getState() == HOLD && key && (millis() - t_hold) > 500 ) {
+        Serial.println(key);
+        if(key=='A'||key=='B'||key=='C'||key=='D'||key=='#'||key=='*'){
       }else{
         Serial.print(F(" keySWITCH1"));
         t_hold = millis();
         switch_holdKey(key);
       }
-   } 
-  
+    } 
+*/
   // print the string when a newline arrives:
   if (stringComplete) {
     serialHandler(inputString);

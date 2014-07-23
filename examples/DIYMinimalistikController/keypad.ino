@@ -1,3 +1,4 @@
+
 // Taking care of some special events.
 void keypadEvent(KeypadEvent key){
   byte chanel;
@@ -6,39 +7,44 @@ void keypadEvent(KeypadEvent key){
 //      Serial.print(F("keypressed"));
 //      Serial.println(key);
         if (key == 'A') {
-          t.pulse(dosing[0].pinAddr,60000 / dosing[0].mlperminute, LOW);
+          t.pulse(dosingPins[0],60000 / dosingMlMin[0], LOW);
 //      Serial.print(F("DOSINGA"));
 //      Serial.println(key);
           writeLCD(0,1);
         }else if (key == 'B') {
-          t.pulse(dosing[1].pinAddr,60000 / dosing[1].mlperminute, LOW);
+          t.pulse(dosingPins[1],60000 / dosingMlMin[1], LOW);
           writeLCD(1,1);
         }else if (key == 'C') {
-          t.pulse(dosing[2].pinAddr,60000 / dosing[2].mlperminute, LOW);
+          t.pulse(dosingPins[2],60000 / dosingMlMin[2], LOW);
           writeLCD(2,1);
         }else if (key == 'D') {
-          t.pulse(dosing[3].pinAddr,60000 / dosing[3].mlperminute, LOW);
+          t.pulse(dosingPins[3],60000 / dosingMlMin[3], LOW);
           writeLCD(3,1);
-        }else if (key == '*') {
-          t.pulse(dosing[4].pinAddr,60000 / dosing[3].mlperminute, LOW);
+        }else if (key == '*' && PUMPCOUNTS>4) {
+          t.pulse(dosingPins[4],60000 / dosingMlMin[4], LOW);
           writeLCD(4,1);
-        }else if (key == '#') {
-          t.pulse(dosing[5].pinAddr,60000 / dosing[3].mlperminute, LOW);
+        }else if (key == '#' && PUMPCOUNTS>5) {
+          t.pulse(dosingPins[5],60000 / dosingMlMin[5], LOW);
           writeLCD(5,1);
         }else if (key == '9') {
             manualLight=false;
+   /*     }else if (key == '0') {
+          manualLight=true;
+          for(int i=0;i<LIGHT_CHANEL;i++){
+            setLED(i,4095-int(ManLightState[i]*40.95));
+          } */
         }else{
           char keyB = keypad.getKey();
           chanel = key-'1';
 //      Serial.print(F("chanel"));
 //      Serial.println(chanel);
-          if(dimming[chanel].level==1){
-            dimming[chanel].level=0;
+          if(dimming[chanel].state==1){
+            dimming[chanel].state=0;
             ledDriver.setLEDOff(chanel*2);
             ledDriver.setLEDOff(chanel*2+1);
             manualLight=true;
-          }else if(dimming[chanel].level==0){
-            dimming[chanel].level=1;
+          }else if(dimming[chanel].state==0){
+            dimming[chanel].state=1;
             ledDriver.setLEDOn(chanel*2);
             ledDriver.setLEDOn(chanel*2+1);
             manualLight=true;
@@ -73,30 +79,26 @@ void switch_holdKey(char k1){
 //      Serial.print(key);
 //      Serial.println("-");
 //      char k1 = keypad.getKey();
-      Serial.println(k1);
+//      Serial.println(k1);
 //      if(k1==65||k1==66||k1==67||k1==68||k1=='#'||k1=='*')return;
 //  if(strcmp(key,"A")==0 || strcmp(key,"B")==0 || strcmp(key,"C")==0 || strcmp(key,"D")==0 || strcmp(key,"#")==0 || strcmp(key,"*")==0)return;
   
-      Serial.print(F("keySWITCH2"));
-      Serial.println(k1);
+//      Serial.print(F("keySWITCH2"));
+//      Serial.println(k1);
   int k = k1-'1';
   //k=k-1;
-  int dir = (int)dimming[k].level;
-  int level = (int)dimming[k].time;
+  if(dimming[k].state==1){
+    dimming[k].level=dimming[k].level + 1;
+  }else if(dimming[k].state==0){
+    dimming[k].level=dimming[k].level - 1;
+  }
+  if(dimming[k].level>=100){
+    dimming[k].state=0;
+  }else if(dimming[k].level<=1){
+    dimming[k].state=1;
+  }
   
-  if(dir==1){
-    level=level + 10;
-  }else if(dir==0){
-    level=level - 10;
-  }
-  if(level>=4090){
-    dir=0;
-  }else if(level<=5){
-    dir=1;
-  }
-    dimming[k].level=dir;
-    dimming[k].time=level;
 //    Serial.print(int(100-float(level/40.95)));
 //    Serial.println(F("%"));
-    setLED(k,level);
+      setLED(k,4095-int(dimming[k].level*40.95));
 }

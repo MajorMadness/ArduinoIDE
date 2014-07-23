@@ -6,7 +6,7 @@ String retTime(){
     t /= 60;
  int   hh = t % 24;
 
-  String sReturn;
+String sReturn;
   
     sReturn = "";
   if (hh < 10) {      // correct hour if necessary
