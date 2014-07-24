@@ -18,17 +18,17 @@
   #define PIN_PWM 11   // PWM PIN    // Lüfter
 
 // Temperatur ab Wann Lüfter an gehen (Ganzzahl)
-const int coolingTemp = 40;
-const float cTemp = 60;
+const byte coolingTemp = 40;
+const byte cTemp = 60;
 // Geschwindigkeit der Lüfter -> 0 Aus, 255 Maximale Geschwindigkeit
-const int pwmValue = 255;
+const byte pwmValue = 255;
 // Größe Vorratsflaschen Dünger in ml
 const int dose_val = 100;
 
 // Neu zuordnung der Pins für Dosierung
-const int dosingPins[]={DOSE1,DOSE2,DOSE3,DOSE4};
+const byte dosingPins[]={DOSE1,DOSE2,DOSE3,DOSE4};
 // Milliliter per minute in Reihenfolge wie Pumpen oben
-const int dosingMlMin[]={60,60,60,60};
+const byte dosingMlMin[]={60,60,60,60};
 
 // Pumpen Einstellungen
 // Uhrzeit, Aktive, Name, Pin Adresse (von array oben 0 ist erste Pumpe "Dose1"), Status (ignorieren, nur wichtig für Programm), Milliliter pro Dosierungconst 

@@ -2,7 +2,7 @@ void setLight(){
     for( byte i=0;i <  LIGHT_CHANEL; i++){
         uint16_t c_PWM = PWM_Licht(i);
         
-        if(temperatur>cTemp){
+        if(temperatur>float(cTemp)){
           c_PWM= 4095;
         }          
         setLED(i,uint16_t(c_PWM));
@@ -41,7 +41,7 @@ int PWM_Licht(int lightIndex){
   float dimTime,f,p;
   float pastSeconds;
   uint32_t Start,Ende;
-  int oMin,oMax;
+  byte oMin,oMax;
   
     if(curIndex ==(LIGHT_VALUES-1) ){
         Start = light_channels[lightIndex][7].time;
