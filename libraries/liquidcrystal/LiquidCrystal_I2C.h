@@ -107,7 +107,7 @@ public:
     @param      charsize[in] size of the characters of the LCD: LCD_5x8DOTS or
     LCD_5x10DOTS.
     */
-   virtual void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);   
+   virtual void begin(uint8_t cols = 16, uint8_t rows = 2, uint8_t charsize = LCD_5x8DOTS);   
    
    /*!
     @function

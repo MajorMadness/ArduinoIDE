@@ -1,5 +1,4 @@
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
 #include <PCA9685.h>
 #include <avr/pgmspace.h>
@@ -13,13 +12,17 @@
 #include "structs.h"
 #include "config.h"
 
+#include <MicroLCD.h>
+LCD_SSD1306 lcd; 
+
+//#include <LiquidCrystal_I2C.h>
+//#define LCD_ADR 0x27      // Adresse LCD
+//LiquidCrystal_I2C lcd(LCD_ADR,2,1,0,4,5,6,7,3,POSITIVE);   // Set the LCD I2C address
 
 Timer t;
 RTC_DS1307 rtc;
 PCA9685 ledDriver; 
 OneWire  ds(PIN_TEMP);
-LiquidCrystal_I2C lcd(LCD_ADR,2,1,0,4,5,6,7,3,POSITIVE);   // Set the LCD I2C address
-
 boolean pumpReset=false;
 
 
@@ -65,7 +68,8 @@ void setup() {
   ledDriver.begin(LED_DRV);
   ledDriver.init();
   lcd.begin();
-
+    lcd.setCursor(0,0); 
+    lcd.print(F("AquaGrow MiniControl"));
   for (int i=0;i<=PUMPCOUNTS;i++){
     pinMode(dosing[i].pinAddr, OUTPUT);
   }
