@@ -186,13 +186,6 @@ void RTC_DS1307::adjust(uint16_t year, uint8_t month, uint8_t day, uint8_t hour,
 
 void RTC_DS1307::now() {
 
-    uint16_t year;
-    uint8_t month;
-    uint8_t day;
-    uint8_t hour;
-    uint8_t minute;
-    uint8_t second;
-	
   WIRE.beginTransmission(DS1307_ADDRESS);
   WIRE.write(0);	
   WIRE.endTransmission();
