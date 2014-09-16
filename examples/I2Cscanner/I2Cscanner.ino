@@ -29,23 +29,23 @@ void loop()
 
     if (error == 0)
     {	
-	  if(address==20){
+	  if(address==32){
 	    Serial.print("Keypad gefunden Adresse ");
         Serial.print("0x");
         Serial.println(address,HEX);
-	  }else if(address==27){
+	  }else if(address==39){
 	    Serial.print("LCD gefunden Adresse ");
         Serial.print("0x");
         Serial.println(address,HEX);
-	  }else if(address==40){
+	  }else if(address==64){
 	    Serial.print("PWM Treiber gefunden Adresse ");
         Serial.print("0x");
         Serial.println(address,HEX);
-	  }else if(address==68){
+	  }else if(address==104){
 	    Serial.print("RTC gefunden Adresse ");
         Serial.print("0x");
         Serial.println(address,HEX);
-	  }else if(address==70){
+	  }else if(address==112){
 	    Serial.print("PWM Treiber Broadcast gefunden Adresse ");
         Serial.print("0x");
         Serial.println(address,HEX);
@@ -53,6 +53,7 @@ void loop()
         Serial.print("I2C device gefunden mit Adresse 0x");
       if (address<16) 
         Serial.print("0");
+        Serial.print(address,HEX);
 
       Serial.println("  !");
       }
