@@ -37,7 +37,7 @@ int PWM_Licht(int lightIndex){
     }
   }
   
-  int Max,Min,pwm=4095;
+  long Max,Min,pwm=4095;
   float dimTime,f,p;
   float pastSeconds;
   uint32_t Start,Ende;
@@ -70,8 +70,8 @@ int PWM_Licht(int lightIndex){
 		dimTime= get_ts(24,0,0)-Start + Ende;
 	}
 
-	Min=uint16_t(pwm- uint32_t(pwm*oMin/100));  // 0%=4095-(4095/100*0) = 
-	Max=uint16_t(pwm- uint32_t(pwm*oMax/100)); // 80% von 4095-(4095/100*80) sind 819
+	Min=(pwm- (pwm*oMin/100));  // 0%=4095-(4095/100*0) = 
+	Max=(pwm- (pwm*oMax/100)); // 80% von 4095-(4095/100*80) sind 819
 
 	if(Min==Max){
 		return Min;
