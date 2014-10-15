@@ -13,7 +13,6 @@ void setLight(){
 void setLED(uint8_t channel, uint16_t Value){
           
     word n_PWM;  
-	Value=4095-Value;
     n_PWM = pgm_read_word(&pwmtable[Value]);
     if (n_PWM<=0)	{
         ledDriver.setLEDOn(channel*2);
@@ -47,8 +46,8 @@ int PWM_Licht(int lightIndex){
     if(curIndex ==(LIGHT_VALUES-1) ){
         Start = light_channels[lightIndex][7].time;
         Ende = light_channels[lightIndex][0].time;
-        oMin = light_channels[lightIndex][7].level;
-        oMax = light_channels[lightIndex][0].level;
+        oMin = 100-light_channels[lightIndex][7].level;
+        oMax = 100-light_channels[lightIndex][0].level;
         
         pastSeconds = rtc.daystamp-Start+0.5;    // vergangene Sekunden ~1616Sek ~ 27min
         dimTime= get_ts(24,0,0) - Start + Ende;
