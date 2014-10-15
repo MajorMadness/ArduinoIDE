@@ -10,12 +10,12 @@
 #include "structs.h"
 #include "config.h"
 
-#include <LiquidCrystal_I2C.h>
+#include <MicroLCD.h>
+LCD_SSD1306 lcd; 
 
 Timer t;
 RTC_DS1307 rtc;
 OneWire  ds(PIN_TEMP);
-LiquidCrystal_I2C lcd(LCD_ADR,2,1,0,4,5,6,7,3,POSITIVE);   // Set the LCD I2C address
 
 boolean pumpReset=false;
 
@@ -56,7 +56,9 @@ void setup() {
   
   Serial.begin(9600);
 
-  lcd.begin(16,2);
+  lcd.begin();
+    lcd.setCursor(0,0); 
+    lcd.print(F("AquaGrow DosingTime"));
 
   for (int n=6;n<=12;n++){
     pinMode(n, OUTPUT);
@@ -66,11 +68,6 @@ void setup() {
   }
   inputString.reserve(20);
   
-    lcd.setCursor(4,0); 
-    lcd.print(F("AquaGrow"));
-    lcd.setCursor(2,1); 
-    lcd.print(F("DosingTime"));
-    delay(2000);
 }
 
 void loop() {

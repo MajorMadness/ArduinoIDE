@@ -46,6 +46,7 @@ class PCA9685
     PCA9685();
     void begin(int i2cAddress);
     void init();
+    void init(boolean pwm);
 	void setLEDOn(int ledNumber);
 	void setLEDOff(int ledNumber);
 	void setLEDDimmed(int ledNumber, word amount);
