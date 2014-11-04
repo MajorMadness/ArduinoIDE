@@ -31,9 +31,9 @@ void serialHandler(String input){
       val= input.substring(4,7).toInt();
       setLED(pin,4095-int(val*40.95));
       manualLight=true;
-      Serial.print(pin);
-      Serial.print(F(" -> "));
-      Serial.println(4095-int(val*40.95));
+//      Serial.print(pin);
+//      Serial.print(F(" -> "));
+//      Serial.println(4095-int(val*40.95));
       break;
     //3=2:60
     case 3:
@@ -42,9 +42,9 @@ void serialHandler(String input){
       if(pin<PUMPCOUNTS){
         unsigned long time = long(val*1000L);
         t.pulseImmediate(dosingPins[pin],time, HIGH);
-        Serial.print(F("P "));
-        Serial.print(pin);
-        Serial.print(F(" kalibriert"));
+//        Serial.print(F("P "));
+//        Serial.print(pin);
+//        Serial.print(F(" kalibriert"));
       }else{
         Serial.print(F("P "));
         Serial.print(pin);
