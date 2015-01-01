@@ -80,5 +80,10 @@ int PWM_Licht(int lightIndex){
 	p = pastSeconds/f;    // 1616 / 0,64=2525   
 	pwm=Min+p;
 
+if(pwm<=0){
+  pwm=0;
+}else if (pwm>4095){
+  pwm=4095;
+}
     return pwm;    // Im Nofall ausschalten...
 }
