@@ -4,27 +4,25 @@ void resetPumps(){
   }
   if(rtc.daystamp<60 && pumpReset==true){
     pumpReset=false;
-    for( int i=0;i < PUMPCOUNTS; i++){
+    for( int i=0;i < sizeof(dosingState)/sizeof(dosingState[0]); i++){
         dosingState[i]=false;
     }
   }
 }
 void setDosing(){
   resetPumps();
-    for( int i=0;i < PUMPCOUNTS; i++){
+    for( int i=0;i < sizeof(dosing) / sizeof(dosing[0]); i++){
       if(dosing[i].active!=0){
         if(rtc.daystamp>=dosing[i].time && rtc.daystamp<=dosing[i].time+10 && digitalRead(dosingPins[dosing[i].pinAddr])==LOW && dosingState[i]==false){
- //     Serial.print(F("setDosing "));
- //     Serial.println(i);
-	  unsigned long time = long(60000L * dosing[i].mldosing / dosingMlMin[i]);
+	  unsigned long time = long(60000L * dosing[i].mldosing / dosingMlMin[dosing[i].pinAddr]);
           t.pulseImmediate(dosingPins[dosing[i].pinAddr],time, HIGH);
           dosingState[i]=true;
-          printDose(i,dosing[i].mldosing);
+          printDose(dosing[i].pinAddr,dosing[i].mldosing);
         }
       }
     }
 }
-
+/*
 void writeLCD(int pos, int val){
           int EEPval;
           EEPROM_readAnything(100+(pos*2),EEPval);  
@@ -37,3 +35,4 @@ void writeLCD(int pos, int val){
           if(EEPval<100)lcd.print(F(" "));
   
 }
+*/

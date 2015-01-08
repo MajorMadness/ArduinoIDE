@@ -11,9 +11,9 @@
   #define RELAY2 3
   #define RELAY3 4
   #define RELAY4 5
-  #define DOSE7 6  
-  #define DOSE6 7   
-  #define DOSE5 8  
+  #define DOSE7 6      // Dosierpumpe 
+  #define DOSE6 7       // Dosierpumpe 
+  #define DOSE5 8      // Dosierpumpe 
   #define DOSE4 9     // Dosierpumpe 
   #define DOSE3 10      // Dosierpumpe 
   #define DOSE2 11     // Dosierpumpe 
@@ -23,13 +23,13 @@
 const int dose_val = 1000;
 
 // Neu zuordnung der Pins für Dosierung
-const byte dosingPins[]={DOSE1,DOSE2,DOSE3,DOSE4,DOSE5,DOSE6,DOSE7};
+const byte dosingPins[PUMPCOUNTS]={DOSE1,DOSE2,DOSE3,DOSE4,DOSE5,DOSE6,DOSE7};
 // Milliliter per minute in Reihenfolge wie Pumpen oben Achtung Maximum 255ml/Minute
-const byte dosingMlMin[]={60,60,60,60,60,60,60};
+const byte dosingMlMin[PUMPCOUNTS]={60,60,60,60,60,60,60};
 
 // Pumpen Einstellungen
-// Uhrzeit, Aktive, Name, Pin Adresse (von array oben 0 ist erste Pumpe "Dose1"), Status (ignorieren, nur wichtig für Programm), Milliliter pro Dosierungconst 
-PUMP dosing[] = {  
+// Uhrzeit, Aktive, Name, Pin Adresse (von array oben 0 ist erste Pumpe "Dose1") Milliliter pro Dosierung
+const PUMP dosing[] = {  
 {get_ts(10,0,0),1,"D1",0,5},
 {get_ts(11,0,0),1,"D2",1,6},
 {get_ts(11,25,0),1,"D3",2,3},
@@ -40,7 +40,7 @@ PUMP dosing[] = {
 };
 
 // Wird verwendet um zu sehen ob schon dosiert wurde. Nicht Ändern!!!
-boolean dosingState[PUMPCOUNTS];
+boolean dosingState[sizeof dosing / sizeof dosing[0]];
 
 const byte relayPIN[]= {RELAY1,RELAY2,RELAY3,RELAY4};
 RELAY relays[RELAYCHANNELS][RELAYTIMES] = { 
